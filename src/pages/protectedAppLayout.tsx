@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useAuthentication } from "../authentication/authenticationContext";
 import { Outlet, useNavigate } from "react-router-dom";
 import { Header } from "../components";
+import { Box } from "@mui/material";
 
 const ProtectedAppLayout = () => {
   const { user } = useAuthentication();
@@ -9,16 +10,18 @@ const ProtectedAppLayout = () => {
 
   useEffect(() => {
     if (!user?.token) {
-      // navigate("/login");
+      navigate("/login");
     }
   }, [user]);
 
-  return (
+  return user?.token ? (
     <>
       <Header />
-      <Outlet />
+      <Box sx={{ marginInline: "20px" }}>
+        <Outlet />
+      </Box>
     </>
-  ) 
+  ) : null;
 };
 
 export default ProtectedAppLayout;

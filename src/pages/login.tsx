@@ -1,6 +1,6 @@
 import { LockOutlined } from "@mui/icons-material";
 import { Box, Avatar, Typography, TextField, Button } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { login } from "../services";
 import { useAuthentication } from "../authentication/authenticationContext";
@@ -9,15 +9,14 @@ const Login: React.FC = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-  const { login: doLogin } = useAuthentication();
+  const { login: doLogin, user } = useAuthentication();
+  const isLoggedInUser = user?.token;
 
   const handleLogin = async () => {
     try {
       // Call the login service passing email and password
       const response = await login(email, password);
 
-      // Store the token in local storage
-      localStorage.setItem("user", JSON.stringify(response));
       doLogin(response);
 
       // Redirect to the admin page
@@ -27,7 +26,13 @@ const Login: React.FC = () => {
     }
   };
 
-  return (
+  useEffect(() => {
+    if (isLoggedInUser) {
+      navigate("/");
+    }
+  }, []);
+
+  return !isLoggedInUser ? (
     <Box
       sx={{
         mt: 20,
@@ -40,7 +45,7 @@ const Login: React.FC = () => {
         <LockOutlined />
       </Avatar>
       <Typography variant="h5">Login</Typography>
-      <Box sx={{ mt: 1 }}>
+      <Box component="form" noValidate sx={{ mt: 1 }}>
         <TextField
           margin="normal"
           required
@@ -52,7 +57,6 @@ const Login: React.FC = () => {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
-
         <TextField
           margin="normal"
           required
@@ -64,7 +68,6 @@ const Login: React.FC = () => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-
         <Button
           fullWidth
           variant="contained"
@@ -75,7 +78,7 @@ const Login: React.FC = () => {
         </Button>
       </Box>
     </Box>
-  );
+  ) : null;
 };
 
 export default Login;

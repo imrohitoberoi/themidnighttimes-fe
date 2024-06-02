@@ -57,19 +57,21 @@ const SearchNewsHistory: React.FC = () => {
     const [keyword, setKeyword] = useState<string>("");
     const [page, setPage] = useState<number>(1);
     const [totalPages, setTotalPages] = useState<number>(0);
-    const [value, setValue] = useState(0);
+    const [value, setValue] = useState<number>(-1);
 
-    const handleChange = (event: React.SyntheticEvent, newValue: number) => {
-        setValue(newValue);
-    };
-
-    const handleSearch = () => {
-        if (keyword) {
-            fetchNews({ keyword, page }).then((response) => {
+    const handleSearch = (searchKeyword: string, pageNumber: number) => {
+        if (searchKeyword) {
+            fetchNews({ keyword: searchKeyword, page: pageNumber }).then((response) => {
                 setNewsArticle(response.results);
-                setTotalPages(Math.ceil(response.count / 10));
+                setTotalPages(Math.ceil(response.count/10));
             })
         }
+    };
+
+    const handleChange = (_event: React.SyntheticEvent, newValue: number) => {
+        setValue(newValue);
+        setKeyword(userHistory[newValue]);
+        handleSearch(userHistory[newValue], 1);
     };
 
     useEffect(() => {
@@ -78,10 +80,14 @@ const SearchNewsHistory: React.FC = () => {
         });
     }, []);
 
+    useEffect(() => {
+        handleSearch(keyword, page);
+    }, [page]);
+
     return (
         <>
             <Box
-                sx={{ flexGrow: 1, bgcolor: 'background.paper', display: 'flex', height: 224 }}
+                sx={{ flexGrow: 1, bgcolor: 'background.paper', display: 'flex', height: '90vh' }}
             >
                 <Tabs
                     orientation="vertical"
@@ -101,7 +107,7 @@ const SearchNewsHistory: React.FC = () => {
                     </TabPanel>
                 ))}
             </Box>
-            <NewsCardList articles={newsArticle} totalPages={totalPages} page={page} setPage={setPage} />
+            {newsArticle.length > 0 && <NewsCardList articles={newsArticle} totalPages={totalPages} page={page} setPage={setPage} />}
         </>
     );
 };
