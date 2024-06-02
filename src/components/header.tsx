@@ -10,10 +10,6 @@ const Header: React.FC = () => {
   const { user, logout } = useAuthentication();
   const navigate = useNavigate();
 
-  const handleHomeClick = () => {
-    navigate("/");
-  };
-
   const handleSearchClick = () => {
     navigate("/search-news");
   };
@@ -43,9 +39,6 @@ const Header: React.FC = () => {
             }}
           >
             <Box sx={{ display: "flex" }}>
-              <Button color="inherit" onClick={handleHomeClick}>
-                Logo
-              </Button>
               <Button color="inherit" onClick={handleSearchClick}>
                 Search
               </Button>
