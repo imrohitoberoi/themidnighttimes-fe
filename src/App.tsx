@@ -1,16 +1,12 @@
-import { Route, Routes } from 'react-router-dom';
-import './App.css';
-import Login from './pages/login';
-import Admin from './pages/admin';
+import { RouterProvider } from "react-router-dom";
+import { AuthenticationProvider } from "./authentication/authenticationContext";
+import { routes } from "./routes";
 
 function App() {
   return (
-    <>
-      <Routes>
-        <Route path="/login" element={<Login />} />
-        <Route path="/admin" element={<Admin />} />
-      </Routes>
-    </>
+    <AuthenticationProvider>
+      <RouterProvider router={routes} />
+    </AuthenticationProvider>
   );
 }
 
