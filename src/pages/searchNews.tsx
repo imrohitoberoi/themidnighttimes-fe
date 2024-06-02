@@ -1,14 +1,11 @@
-import { LockOutlined } from "@mui/icons-material";
 import {
-    Box,
     Autocomplete,
-    Avatar,
-    Typography,
-    TextField,
-    Button
+    Button,
+    TextField
 } from "@mui/material";
 import { useState, useEffect } from "react";
 import { fetchNews, getNewsArticleHistory } from "../services";
+import { NewsCardList } from "../components";
 
 type NewsArticleType = {
     id: number;
@@ -18,48 +15,56 @@ type NewsArticleType = {
     url: string | null;
     source_id: string | null;
     source_name: string | null;
-}
-
-type NewsArticleListType = {
-	count: number;
-    next: string | null;
-    previous: string | null;
-    results: NewsArticleType[]
-}[];
+};
 
 const SearchNews: React.FC = () => {
     const [userHistory, setUserHistory] = useState<string[]>([]);
-    const [newsArticle, setNewsArticle] = useState<NewsArticleListType>([]);
+    const [newsArticle, setNewsArticle] = useState<NewsArticleType[]>([]);
+    const [keyword, setKeyword] = useState<string>("");
+    const [page, setPage] = useState<number>(1);
+    const [totalPages, setTotalPages] = useState<number>(0);
 
-    const handleSubmit = async (keyword: string) => {
-        try {
-            const response = await fetchNews({keyword});
-            console.log('response', response);
-            setNewsArticle(response.results);
-        } catch (error) {
-            console.error('Error fetching news:', error);
+    const handleSearch = () => {
+        if (keyword) {
+            fetchNews({ keyword, page }).then((response) => {
+                setNewsArticle(response.results);
+                setTotalPages(Math.ceil(response.count/10));
+            })
         }
     };
 
     useEffect(() => {
         getNewsArticleHistory().then((response) => {
-            setUserHistory(response.map((item: any)=>item.keyword));
+            setUserHistory(response.map((item: any) => item.keyword));
         });
     }, []);
 
+    useEffect(() => {
+        handleSearch();
+    }, [page]);
+
     return (
-        <Autocomplete
-            disablePortal
-            id="search-news"
-            options={userHistory}
-            sx={{ width: 300 }}
-            renderInput={(params) => <TextField {...params} label="Search Articles" />}
-            onChange={(event, value) => {
-                if (value) {
-                    handleSubmit(value);
-                }
-            }}
-        />
+        <>
+            <Autocomplete
+                freeSolo
+                id="search-news"
+                options={userHistory}
+                sx={{ width: 300 }}
+                renderInput={(params) => <TextField {...params} label="Search Articles" />}
+                onInputChange={(_event, newInputValue) => {
+                    setKeyword(newInputValue);
+                }}
+            />
+            <Button
+                variant="contained"
+                color="primary"
+                onClick={handleSearch}
+                disabled={keyword ? false : true}
+            >
+                Search
+            </Button>
+            {newsArticle.length > 0 && <NewsCardList articles={newsArticle} totalPages={totalPages} page={page} setPage={setPage}/>}
+        </>
     );
 };
 

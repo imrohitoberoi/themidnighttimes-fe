@@ -53,4 +53,5 @@ const Header: React.FC = () => {
     </Box>
   );
 };
+
 export default Header;

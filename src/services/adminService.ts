@@ -1,4 +1,5 @@
 import { API_ENDPOINTS, API_METHODS, ENV } from "../constants";
+import { getAuthToken } from "./utils";
 
 export const getUsers = async () => {
     const apiUrl = `${ENV.BASE_URL}${API_ENDPOINTS.USERS}`;
@@ -6,7 +7,7 @@ export const getUsers = async () => {
         method: API_METHODS.GET,
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Token ${localStorage.getItem('token')}`
+            'Authorization': `Token ${getAuthToken()}`
         },
     });
 
@@ -24,7 +25,7 @@ export const createUsers = async (userData: any) => {
         method: API_METHODS.POST,
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Token ${localStorage.getItem('token')}`
+            'Authorization': `Token ${getAuthToken()}`
         },
         body: JSON.stringify(userData),
     });
@@ -43,7 +44,7 @@ export const updateUsers = async (userData: any) => {
         method: API_METHODS.PUT,
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Token ${localStorage.getItem('token')}`
+            'Authorization': `Token ${getAuthToken()}`
         },
         body: JSON.stringify(userData),
     });
@@ -62,7 +63,7 @@ export const blockUnblockUsers = async (userData: any) => {
         method: API_METHODS.PATCH,
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Token ${localStorage.getItem('token')}`
+            'Authorization': `Token ${getAuthToken()}`
         },
         body: JSON.stringify(userData),
     });

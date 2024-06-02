@@ -1,4 +1,5 @@
 import { API_ENDPOINTS, API_METHODS, ENV } from "../constants";
+import { getAuthToken } from "./utils";
 
 export const fetchNews = async (queryParams: Record<string, string | number | null>) => {
     const apiUrl = `${ENV.BASE_URL}${API_ENDPOINTS.NEWS}`;
@@ -13,7 +14,7 @@ export const fetchNews = async (queryParams: Record<string, string | number | nu
         method: API_METHODS.GET,
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Token ${localStorage.getItem('token')}`
+            'Authorization': `Token ${getAuthToken()}`
         },
     });
 
@@ -31,7 +32,7 @@ export const getNewsArticleHistory = async () => {
         method: API_METHODS.GET,
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Token ${localStorage.getItem('token')}`
+            'Authorization': `Token ${getAuthToken()}`
         },
     });
 

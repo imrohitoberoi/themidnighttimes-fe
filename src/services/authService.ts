@@ -1,4 +1,5 @@
 import { API_ENDPOINTS, API_METHODS, ENV } from "../constants";
+import { getAuthToken } from "./utils";
 
 export const login = async (email: string, password: string) => {
     const apiUrl = `${ENV.BASE_URL}${API_ENDPOINTS.LOGIN}`;
@@ -24,7 +25,7 @@ export const logout = async () => {
         method: API_METHODS.POST,
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Token ${localStorage.getItem('token')}`
+            'Authorization': `Token ${getAuthToken()}`
         }
     });
 
