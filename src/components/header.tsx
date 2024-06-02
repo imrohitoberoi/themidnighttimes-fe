@@ -3,33 +3,32 @@ import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import Button from "@mui/material/Button";
-
+import { useAuthentication } from "../authentication/authenticationContext";
+import { useNavigate } from "react-router-dom";
 
 const Header: React.FC = () => {
-  const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
-    null
-  );
-  const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
-    null
-  );
+  const { user, logout } = useAuthentication();
+  const navigate = useNavigate();
 
-  const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorElNav(event.currentTarget);
-  };
-  const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorElUser(event.currentTarget);
+  const handleSearchClick = () => {
+    navigate("/search-news");
   };
 
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
+  const handleHistoryClick = () => {
+    navigate("/search-news-history");
   };
 
-  const handleCloseUserMenu = () => {
-    setAnchorElUser(null);
+  const handleAdminClick = () => {
+    navigate("/admin");
+  };
+
+  const handleLogoutClick = () => {
+    logout();
+    navigate("/login");
   };
 
   return (
-    <Box sx={{ flexGrow: 1 }}>
+    <Box sx={{ flexGrow: 1, marginBottom: "20px" }}>
       <AppBar position="static">
         <Toolbar variant="dense">
           <Box
@@ -40,12 +39,22 @@ const Header: React.FC = () => {
             }}
           >
             <Box sx={{ display: "flex" }}>
-              <Button color="inherit">Logo</Button>
-              <Button color="inherit">Search</Button>
-              <Button color="inherit">History</Button>
+              <Button color="inherit" onClick={handleSearchClick}>
+                Search
+              </Button>
+              <Button color="inherit" onClick={handleHistoryClick}>
+                History
+              </Button>
+              {user?.is_staff && (
+                <Button color="inherit" onClick={handleAdminClick}>
+                  Admin
+                </Button>
+              )}
             </Box>
             <Box>
-              <Button color="inherit">Logout</Button>
+              <Button color="inherit" onClick={handleLogoutClick}>
+                Logout
+              </Button>
             </Box>
           </Box>
         </Toolbar>
