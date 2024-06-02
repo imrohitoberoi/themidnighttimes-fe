@@ -1,11 +1,12 @@
 import React, { createContext, useContext, useState } from "react";
+import { getAuthToken } from "../services/utils";
 
-interface User {
+type User = {
   token: string;
   is_staff: boolean;
 }
 
-interface AuthenticationContextType {
+type AuthenticationContextType = {
   user: User | null;
   login: (userData: User) => void;
   logout: () => void;
@@ -20,10 +21,7 @@ const AuthenticationContext = createContext<AuthenticationContextType>({
 export const AuthenticationProvider: React.FC<{
   children: React.ReactNode;
 }> = ({ children }) => {
-  const loggedInUserData = localStorage.getItem("user");
-  const [user, setUser] = useState<User | null>(
-    loggedInUserData ? JSON.parse(loggedInUserData) : null
-  );
+  const [user, setUser] = useState<User | null>(getAuthToken());
 
   const login = (userData: User) => {
     // Perform login logic, set user data, and store token in localStorage

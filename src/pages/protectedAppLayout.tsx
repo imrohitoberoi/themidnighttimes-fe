@@ -1,22 +1,24 @@
 import React, { useEffect } from "react";
 import { useAuthentication } from "../authentication/authenticationContext";
 import { Outlet, useNavigate } from "react-router-dom";
-import Header from "../components/header";
+import { Header } from "../components";
 
-export const ProtectedAppLayout = () => {
+const ProtectedAppLayout = () => {
   const { user } = useAuthentication();
   const navigate = useNavigate();
 
   useEffect(() => {
     if (!user?.token) {
-      navigate("/login");
+      // navigate("/login");
     }
   }, [user]);
 
-  return user?.token ? (
+  return (
     <>
       <Header />
       <Outlet />
     </>
-  ) : null;
+  ) 
 };
+
+export default ProtectedAppLayout;

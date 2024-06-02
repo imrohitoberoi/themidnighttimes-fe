@@ -1,6 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
-import { Admin, Login, SearchNews } from "./pages";
-import { ProtectedAppLayout } from "./pages/protectedAppLayout";
+import { Admin, Login, SearchNews, SearchNewsHistory } from "./pages";
+import { ProtectedAppLayout } from "./pages";
 
 export const routes = createBrowserRouter([
   {
@@ -22,6 +22,10 @@ export const routes = createBrowserRouter([
       {
         path: "search-news",
         element: <SearchNews />,
+      },
+      {
+        path: "search-news-history",
+        element: <SearchNewsHistory />,
       },
     ],
   },

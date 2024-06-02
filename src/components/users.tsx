@@ -28,14 +28,14 @@ import {
 import { blockUnblockUsers, createUsers, getUsers, updateUsers } from "../services";
 
 
-interface EditToolbarProps {
+type EditToolbarProps = {
     setRows: (newRows: (oldRows: GridRowsProp) => GridRowsProp) => void;
     setRowModesModel: (
         newModel: (oldModel: GridRowModesModel) => GridRowModesModel,
     ) => void;
 }
 
-interface GridRow {
+type GridRow = {
     id: number;
     isNew: boolean;
     first_name: string;
