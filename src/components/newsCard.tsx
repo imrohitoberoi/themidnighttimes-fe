@@ -19,6 +19,11 @@ type NewsCardProps = {
     article: NewsArticleType;
 }
 
+/**
+ * Formats a date string into a human-readable date format.
+ * @param dateString - The date string to format.
+ * @returns The formatted date string.
+ */
 const formatDate = (dateString: string | null) => {
     if (!dateString) return '';
     const date = new Date(dateString);
@@ -29,6 +34,11 @@ const formatDate = (dateString: string | null) => {
     });
 };
 
+/**
+ * Displays a news card containing information about a single news article.
+ * @param article - The news article data to display.
+ * @returns The NewsCard component.
+ */
 const NewsCard: React.FC<NewsCardProps> = ({ article }) => {
     return (
         <Card sx={{ marginBottom: 2 }}>

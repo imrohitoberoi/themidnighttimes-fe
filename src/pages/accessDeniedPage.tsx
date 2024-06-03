@@ -1,8 +1,9 @@
-import { useRouteError } from "react-router-dom";
-
+/**
+ * Component for displaying an access denied message.
+ * This component is rendered when a user tries to access a page without proper authorization.
+ * @returns {JSX.Element} AccessDeniedPage component.
+ */
 export default function AccessDeniedPage() {
-  const error = useRouteError();
-
   return (
     <div>
       <h1>Oops!</h1>

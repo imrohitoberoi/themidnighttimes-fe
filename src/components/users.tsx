@@ -79,6 +79,9 @@ function EditToolbar(props: EditToolbarProps) {
   );
 }
 
+/**
+ * Component for managing users.
+ */
 const Users: React.FC = () => {
   const [rows, setRows] = useState<GridRow[]>([]);
   const [rowModesModel, setRowModesModel] = useState<GridRowModesModel>({});
@@ -142,6 +145,7 @@ const Users: React.FC = () => {
     setRowModesModel(newRowModesModel);
   };
 
+  // Columns definition
   const columns: GridColDef[] = [
     {
       field: "first_name",
@@ -238,6 +242,7 @@ const Users: React.FC = () => {
   ];
 
   useEffect(() => {
+    // Prefetch data
     getUsers().then((response) => {
       setRows(response);
     });
