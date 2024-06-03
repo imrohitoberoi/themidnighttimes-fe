@@ -1,4 +1,4 @@
-# Getting Started with Create React App
+# The Midnight Times
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
@@ -39,8 +39,14 @@ Instead, it will copy all the configuration files and the transitive dependencie
 
 You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
 
-## Learn More
+## Features
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- **User Authentication:** Secure login and logout functionality using tokens.
+- **Search News:** Search for news articles based on various query parameters.
+- **News History:** View the history of previously viewed news articles.
+- **Admin Panel:** Admin interface for managing users and viewing detailed statistics.
+- **Most Searched Keywords:** Retrieve and display the most searched keywords.
+- **Responsive Design:** Optimized for different screen sizes and devices.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Screenshots
+

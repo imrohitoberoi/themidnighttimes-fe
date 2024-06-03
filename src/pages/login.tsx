@@ -5,6 +5,11 @@ import { useNavigate } from "react-router-dom";
 import { login } from "../services";
 import { useAuthentication } from "../authentication/authenticationContext";
 
+/**
+ * Component representing the login page.
+ * Renders a form for user authentication.
+ * @returns {JSX.Element} Login component.
+ */
 const Login: React.FC = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState<string>("");

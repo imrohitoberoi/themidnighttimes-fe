@@ -1,6 +1,13 @@
 import { API_ENDPOINTS, API_METHODS, ENV } from "../constants";
 import { getAuthToken } from "./utils";
 
+/**
+ * Fetches news articles based on the provided query parameters.
+ * 
+ * @param {Record<string, string | number | null>} queryParams - The query parameters to filter the news articles.
+ * @returns {Promise<any>} A promise that resolves to the list of fetched news articles.
+ * @throws {Error} Throws an error if the request fails.
+ */
 export const fetchNews = async (queryParams: Record<string, string | number | null>) => {
     const apiUrl = `${ENV.BASE_URL}${API_ENDPOINTS.NEWS}`;
     const searchParams = new URLSearchParams();
@@ -26,6 +33,12 @@ export const fetchNews = async (queryParams: Record<string, string | number | nu
     return await response.json();
 };
 
+/**
+ * Fetches the history of viewed news articles.
+ * 
+ * @returns {Promise<any>} A promise that resolves to the list of viewed news articles.
+ * @throws {Error} Throws an error if the request fails.
+ */
 export const getNewsArticleHistory = async () => {
     const apiUrl = `${ENV.BASE_URL}${API_ENDPOINTS.NEWS_HISTORY}`;
     const response = await fetch(apiUrl, {

@@ -6,22 +6,49 @@ import Button from "@mui/material/Button";
 import { useAuthentication } from "../authentication/authenticationContext";
 import { useNavigate } from "react-router-dom";
 
+/**
+ * Header Component
+ * 
+ * This component renders the application's header with navigation buttons
+ * for searching news, viewing search history, accessing admin panel (if the user is a staff member),
+ * and logging out. It utilizes the `useAuthentication` hook for user authentication state 
+ * and the `useNavigate` hook for navigation.
+ * 
+ * @component
+ */
 const Header: React.FC = () => {
   const { user, logout } = useAuthentication();
   const navigate = useNavigate();
 
+  /**
+   * Handles the click event for the Search button.
+   * Navigates to the search news page.
+   */
   const handleSearchClick = () => {
     navigate("/search-news");
   };
 
+  /**
+   * Handles the click event for the History button.
+   * Navigates to the search news history page.
+   */
   const handleHistoryClick = () => {
     navigate("/search-news-history");
   };
 
+  /**
+   * Handles the click event for the Admin button.
+   * Navigates to the admin panel.
+   * This button is only rendered if the user is a staff member.
+   */
   const handleAdminClick = () => {
     navigate("/admin");
   };
 
+  /**
+   * Handles the click event for the Logout button.
+   * Logs the user out and navigates to the login page.
+   */
   const handleLogoutClick = () => {
     logout();
     navigate("/login");

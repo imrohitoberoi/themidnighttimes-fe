@@ -2,6 +2,9 @@ import { createBrowserRouter } from "react-router-dom";
 import { Admin, Login, SearchNews, SearchNewsHistory } from "./pages";
 import { ProtectedAppLayout } from "./pages";
 
+/**
+ * Define routes for the application.
+ */
 export const routes = createBrowserRouter([
   {
     path: "/login",
